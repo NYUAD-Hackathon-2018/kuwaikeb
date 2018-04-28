@@ -179,7 +179,8 @@ public class MathManager : MonoBehaviour {
 			cm += Lx;
 			Ly = Random.Range(Mathf.Min(Lx, (totalLevel - Lx)), (Mathf.Max(Lx, (totalLevel - Lx))));
 			cm += Ly;
-			currentMark = (2 * (cm / 3));
+			currentMark = (2f * (cm / 3f));
+
 			if (Lx > 5)
 				Lx = 5;
 			if (Ly > 5)
