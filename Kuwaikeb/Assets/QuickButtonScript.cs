@@ -14,8 +14,8 @@ public class QuickButtonScript : MonoBehaviour {
 	}
 
 	void taskOnClick(){
-		GameObject.Find ("Canvas").SetActive (false);
-		GameObject.Find ("MathManager").GetComponent<MathManager> ().generate ("Rush", '+');
+		GameObject.Find ("Canvas/Options").SetActive (false);
+		GameObject.Find ("GameManager").GetComponent<MathManager> ().generate ("Rush", '+');
 	}
 
 }

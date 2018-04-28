@@ -14,8 +14,8 @@ public class DivideButtonScript : MonoBehaviour {
 	}
 
 	void taskOnClick(){
-		GameObject.Find ("Canvas").SetActive (false);
-		GameObject.Find ("MathManager").GetComponent<MathManager> ().generate ("Selective", '/');
+		GameObject.Find ("Canvas/Options").SetActive (false);
+		GameObject.Find ("GameManager").GetComponent<MathManager> ().generate ("Selective", '/');
 	}
 
 }
