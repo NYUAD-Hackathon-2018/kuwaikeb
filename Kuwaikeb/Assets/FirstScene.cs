@@ -12,19 +12,12 @@ public class FirstScene : MonoBehaviour {
 	// }
 
 
-	public void goBack ()
+	public void goToScene (string sceneName)
 	{
 
-		
 		Debug.Log("About Us being clicked");
-		SceneManager.LoadScene("DoaaScene");
+		SceneManager.LoadScene(sceneName);
 		// Application.LoadLevel("about-us");
-	}
-
-	public void goForwards ()
-	{
-		Debug.Log("About Us being clicked");
-		SceneManager.LoadScene("about-us");
 	}
 
 }
