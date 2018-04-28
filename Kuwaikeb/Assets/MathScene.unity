@@ -264,7 +264,7 @@ MonoBehaviour:
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 78206706}
   m_OnClick:
     m_PersistentCalls:
@@ -498,7 +498,7 @@ MonoBehaviour:
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 231146988}
   m_OnClick:
     m_PersistentCalls:
@@ -861,7 +861,7 @@ MonoBehaviour:
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 403846749}
   m_OnClick:
     m_PersistentCalls:
@@ -2111,6 +2111,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   QA: {fileID: 1267055351}
+  Options: {fileID: 1730914419}
+  maxLevel: 1
 --- !u!4 &1240723650
 Transform:
   m_ObjectHideFlags: 0
@@ -2716,7 +2718,7 @@ MonoBehaviour:
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 1384711831}
   m_OnClick:
     m_PersistentCalls:
@@ -3346,7 +3348,7 @@ GameObject:
   - component: {fileID: 1695176428}
   - component: {fileID: 1695176429}
   m_Layer: 0
-  m_Name: /
+  m_Name: $
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

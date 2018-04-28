@@ -14,8 +14,14 @@ public class SubButtonScript : MonoBehaviour {
 	}
 
 	void taskOnClick(){
-		GameObject.Find ("Canvas/Options").SetActive (false);
-		GameObject.Find ("GameManager").GetComponent<MathManager> ().generate ("Selective", '-');
+		int level = GameObject.Find ("GameManager").GetComponent<MathManager> ().maxLevel;
+		if (level >= 2) {
+			GameObject.Find ("Canvas/Options").SetActive (false);
+			GameObject.Find ("GameManager").GetComponent<MathManager> ().generate ("Selective", '-');
+		} else {
+			// do something
+		}
+
 	}
 
 }

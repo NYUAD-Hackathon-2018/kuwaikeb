@@ -14,8 +14,14 @@ public class QuickButtonScript : MonoBehaviour {
 	}
 
 	void taskOnClick(){
-		GameObject.Find ("Canvas/Options").SetActive (false);
-		GameObject.Find ("GameManager").GetComponent<MathManager> ().generate ("Rush", '+');
+
+		int level = GameObject.Find ("GameManager").GetComponent<MathManager> ().maxLevel;
+		if (level >= 5) {
+			GameObject.Find ("Canvas/Options").SetActive (false);
+			GameObject.Find ("GameManager").GetComponent<MathManager> ().generate ("Rush", '+');
+		} else {
+			// do something
+		}
 	}
 
 }

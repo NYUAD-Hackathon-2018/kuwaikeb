@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class MathManager : MonoBehaviour {
 
 	public GameObject QA;
+	public GameObject Options;
 
 	protected string mainMode;
 	protected char mainOp;
@@ -14,21 +15,23 @@ public class MathManager : MonoBehaviour {
 	protected int chosenResult;
 	protected int numTries;
 	protected int currentMark;
+	protected int attemps;
+	protected bool firstTime = false;
+	public int maxLevel = 1;
 
 	int[] boundaries = new int[10]{0,9,10,19,20,49,50,99,100,999};
-	char[] opLevel = new char[4]{'+','-','*','/'};
+	char[] opLevel = new char[4]{'+','-','*','$'};
 
 	float levelMark;
 	int totalLevel;
+	int[] ansList = new int[4];
 	Button[] btn = new Button[4];
 
 	// Use this for initialization
 	void Start () {
 
-		for (int a = 0; a < 4; a++) {
-			btn[a] = GameObject.Find ("Canvas/QuestionAnswer/ButtonHolder/" + (a + 1).ToString ()).GetComponent<Button> ();
-			btn[a].onClick.AddListener (taskOnClick);
-		}
+
+
 
 	}
 
@@ -37,36 +40,80 @@ public class MathManager : MonoBehaviour {
 		
 	}
 
-	void taskOnClick(){
+	void bt1click(){
+		taskOnClick (ansList [0]);
+	}
+
+	void bt2click(){
+		taskOnClick (ansList [1]);
+	}
+
+	void bt3click(){
+		taskOnClick (ansList [2]);
+	}
+
+	void bt4click(){
+		taskOnClick (ansList [3]);
+	}
+
+	void taskOnClick(int ans){
+		//Debug.Log ("Button clicked");
 		if (mainMode == "Selective") {
+			attemps++;
 			// if the answer is right
-			levelMark += currentMark;
-			if (levelMark > 7)
-				levelMark = 7;
-			numTries++;
-			if (numTries == 3) {
-				// Reward functions 
-			} else {
+			if (ans == correctResult) {
+				levelMark += currentMark;
+				if (levelMark > 7)
+					levelMark = 7;
+				numTries++;
+				if (numTries == 3) {
+					// Reward functions opLevel
+					for (int j = 0; j < 4; j++) {
+						if (opLevel [j] == mainOp) {
+							if (j == (maxLevel-1)) {
+								maxLevel++;
+								firstTime = false;
+								Options.SetActive (true);
+								QA.SetActive (false);
+
+							}
+						}
+					}
+
+				} else {
+					if (attemps < 10) {
+						displayQuestion ();
+					} else {
+						// if he fails in 10 attemps
+					}
+				}
+			}
+
+			//if the answer is wrong
+			else {
+				if (attemps  < 10) {
+					reInitiate ();
+				} else {
+					// if he fails in 10 attemps
+				}
+			}
+		} else {
+			// if the answer is right
+
+			if (ans == correctResult) {
+				levelMark += currentMark;
+				if (levelMark > 15)
+					levelMark = 15;
 				displayQuestion ();
 			}
 
-
-			//if the answer is wrong
-			reInitiate ();
-
-		} else {
-			// if the answer is right
-			levelMark += currentMark;
-			if (levelMark > 15)
-				levelMark = 15;
-			displayQuestion ();
-
 			// if the answer is wrong
-
-			levelMark -= currentMark;
-			if (levelMark < 3)
-				levelMark = 3;
-			displayQuestion ();
+			else {
+				levelMark -= currentMark;
+				if (levelMark < 3)
+					levelMark = 3;
+				displayQuestion ();
+			}
 
 		}
 			
@@ -77,7 +124,25 @@ public class MathManager : MonoBehaviour {
 		generate (mainMode,mainOp);
 	}
 	public void generate(string mode, char op){
-		QA.SetActive (true);
+		if (firstTime == false) {
+			firstTime = true;
+			QA.SetActive (true);
+
+			for (int a = 0; a < 4; a++) {
+				btn[a] = GameObject.Find ("Canvas/QuestionAnswer/ButtonHolder/" + (a + 1).ToString ()).GetComponent<Button> ();
+				//Debug.Log ("Button added" + btn [a]);
+				//			btn[a].onClick.AddListener (taskOnClick);
+			}
+			btn [0].onClick.RemoveAllListeners ();
+			btn [1].onClick.RemoveAllListeners ();
+			btn [2].onClick.RemoveAllListeners ();
+			btn [3].onClick.RemoveAllListeners ();
+			btn [0].onClick.AddListener (bt1click);
+			btn [1].onClick.AddListener (bt2click);
+			btn [2].onClick.AddListener (bt3click);
+			btn [3].onClick.AddListener (bt4click);
+			attemps = 0;
+		}
 		mainOp = op;
 		mainTried = 0;
 		mainMode = mode;
@@ -95,7 +160,7 @@ public class MathManager : MonoBehaviour {
 	}
 
 	public int[] createQuestion(){
-		Debug.Log (mainMode);
+		////Debug.Log (mainMode);
 		if (mainMode == "Selective")
 		{
 			Random rnd = new Random();
@@ -108,14 +173,23 @@ public class MathManager : MonoBehaviour {
 			Ly = Random.Range(Mathf.Min(Lx, (totalLevel - Lx)), (Mathf.Max(Lx, (totalLevel - Lx))));
 			cm += Ly;
 			currentMark = (2 * (cm / 3));
+			if (Lx > 5)
+				Lx = 5;
+			if (Ly > 5)
+				Ly = 5;
 			int x = Random.Range(boundaries[(Lx - 1) * 2], (boundaries[((Lx - 1) * 2) + 1]) + 1);
 			int y = Random.Range(boundaries[(Ly - 1) * 2], (boundaries[((Ly - 1) * 2) + 1]) + 1);
-			if (op == '/')
+			if (op == '$')
 			{
 				int tmp = x;
 				x = Mathf.Max(x, y);
 				y = Mathf.Min(tmp, y);
-				y = y - (y % x);
+				if (y == 0) {
+					y = 1;
+				}
+				y = y - (x % y);
+				x = x - (x % y);
+
 			}
 			int[] answers = new int[4];
 			int result = 0;
@@ -131,9 +205,8 @@ public class MathManager : MonoBehaviour {
 			{
 				result = x * y;
 			}
-			else if (op == '/')
+			else if (op == '$')
 			{
-				y=y == 0 ? 1 : y;
 				result = x / y;
 			}
 			correctResult = result;
@@ -194,21 +267,29 @@ public class MathManager : MonoBehaviour {
 			Loperation = (int)Random.Range(Mathf.Max(1f, (levelMark / 5f)), Mathf.Min(Mathf.Abs(cm - levelMark), (levelMark / 3f)));
 			cm += Loperation;
 			currentMark = (2 * (cm / 15));
+			if (Lx > 5)
+				Lx = 5;
+			if (Ly > 5)
+				Ly = 5;
 			int x = Random.Range(boundaries[(Lx - 1) * 2], (boundaries[((Lx - 1) * 2) + 1]) + 1);
 			int y = Random.Range(boundaries[(Ly - 1) * 2], (boundaries[((Ly - 1) * 2) + 1]) + 1);
 			if (Loperation > 4)
 			{
 				Loperation = 4;
 			}
-			Debug.Log ("Error here bcuz Loperation is" + Loperation);
+			////Debug.Log ("Error here bcuz Loperation is" + Loperation);
 			char op = opLevel[Loperation - 1];
 			mainOp = op;
-			if (op == '/')
+			if (op == '$')
 			{
 				int tmp = x;
 				x = Mathf.Max(x, y);
 				y = Mathf.Min(tmp, y);
-				y = y - (y % x);
+				if (y == 0) {
+					y = 1;
+				}
+				y = y - (x % y);
+				x = x - (x % y);
 			}
 			int[] answers = new int[4];
 			int result = 0;
@@ -224,9 +305,8 @@ public class MathManager : MonoBehaviour {
 			{
 				result = x * y;
 			}
-			else if (op == '/')
+			else if (op == '$')
 			{
-				y=y == 0 ? 1 : y;
 				result = x / y;
 			}
 			correctResult = result;
@@ -277,10 +357,11 @@ public class MathManager : MonoBehaviour {
 	}
 
 	void displayQuestion(){
+		//Debug.Log ("Display question called");
 		int[] created = createQuestion ();
-		Debug.Log (mainOp);
+
 		foreach (int i in created) {
-			Debug.Log ("val " + i);
+			////Debug.Log ("val " + i);
 		}
 		int[] answers = new int[4]{ created [2], created [3], created [4], created [5] };
 		reshuffle (answers);
@@ -297,6 +378,7 @@ public class MathManager : MonoBehaviour {
 
 		for (int a = 0; a < 4; a++) {
 			GameObject.Find ("Canvas/QuestionAnswer/ButtonHolder/" + (a + 1).ToString () + "/Text").GetComponent<Text> ().text = answers [a].ToString ();
+			ansList [a] = answers [a];
 		}
 
 	}
@@ -346,8 +428,8 @@ public class MathManager : MonoBehaviour {
 				finalArray [2] = temp;
 			}
 		}
-		Debug.Log ("final array" + finalArray);
-		Debug.Log ("avoid counter" + avoidCounter);
+		////Debug.Log ("final array" + finalArray);
+		////Debug.Log ("avoid counter" + avoidCounter);
 		return finalArray;
 	}
 }
