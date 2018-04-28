@@ -4,4 +4,10 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/DoaaScene.unity
+    guid: c01cce65510c24365912167913ad24ab
+  - enabled: 1
+    path: Assets/about-us.unity
+    guid: 053b2e1f5284a4861b726ca268200672
