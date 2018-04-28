@@ -15,9 +15,22 @@ public class FirstScene : MonoBehaviour {
 	public void goToScene (string sceneName)
 	{
 
-		Debug.Log("About Us being clicked");
+		Debug.Log("Button being clicked");
 		SceneManager.LoadScene(sceneName);
 		// Application.LoadLevel("about-us");
 	}
+
+	public void goToScene (int sceneNumber)
+	{
+
+		Debug.Log("Button being clicked");
+		SceneManager.LoadScene(sceneNumber);
+		// Application.LoadLevel("about-us");
+	}
+
+	public void LoadScene(int level)
+      { 
+         Application.LoadLevel(level);
+       }
 
 }
