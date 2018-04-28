@@ -11,6 +11,7 @@ public class QuickButtonScript : MonoBehaviour {
 	void Start () {
 		btn = gameObject.GetComponent<Button> ();
 		btn.onClick.AddListener(taskOnClick);
+		btn.interactable = false;
 	}
 
 	void taskOnClick(){

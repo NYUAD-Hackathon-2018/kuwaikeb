@@ -14,7 +14,7 @@ public class MathManager : MonoBehaviour {
 	protected int correctResult;
 	protected int chosenResult;
 	protected int numTries;
-	protected int currentMark;
+	protected float currentMark;
 	protected int attemps;
 	protected bool firstTime = false;
 	public int maxLevel = 1;
@@ -75,7 +75,14 @@ public class MathManager : MonoBehaviour {
 								firstTime = false;
 								Options.SetActive (true);
 								QA.SetActive (false);
-
+								if (maxLevel == 2)
+									Options.transform.Find ("Sub").gameObject.GetComponent<Button> ().interactable = true;
+								if (maxLevel == 3)
+									Options.transform.Find ("Multiply").gameObject.GetComponent<Button> ().interactable = true;
+								if (maxLevel == 4)
+									Options.transform.Find ("Divide").gameObject.GetComponent<Button> ().interactable = true;
+								if (maxLevel == 5)
+									Options.transform.Find ("QuickMode").gameObject.GetComponent<Button> ().interactable = true;
 							}
 						}
 					}
@@ -266,7 +273,7 @@ public class MathManager : MonoBehaviour {
 			cm += Ly;
 			Loperation = (int)Random.Range(Mathf.Max(1f, (levelMark / 5f)), Mathf.Min(Mathf.Abs(cm - levelMark), (levelMark / 3f)));
 			cm += Loperation;
-			currentMark = (2 * (cm / 15));
+			currentMark = (2f * (cm / 5f));
 			if (Lx > 5)
 				Lx = 5;
 			if (Ly > 5)
