@@ -7,6 +7,7 @@ public class MathManager : MonoBehaviour {
 
 	public GameObject QA;
 	public GameObject Options;
+	public GameObject correctAnswer;
 
 	protected string mainMode;
 	protected char mainOp;
@@ -73,10 +74,13 @@ public class MathManager : MonoBehaviour {
 							if (j == (maxLevel-1)) {
 								maxLevel++;
 								firstTime = false;
-								Options.SetActive (true);
+								// Options.SetActive (true);
+								Options.SetActive (false);
 								QA.SetActive (false);
-								GameObject.Find("Canvas/avatar-yes").GetComponent<SpriteRenderer>().sortingOrder = 0;
+								correctAnswer.SetActive (true);
+								// GameObject.Find("Canvas/avatar-yes").GetComponent<SpriteRenderer>().sortingOrder = 0;
 								//gameObject.GetComponent<Renderer>().enabled = true;
+
 								if (maxLevel == 2)
 									Options.transform.Find ("Sub").gameObject.GetComponent<Button> ().interactable = true;
 								if (maxLevel == 3)
@@ -133,7 +137,6 @@ public class MathManager : MonoBehaviour {
 		generate (mainMode,mainOp);
 	}
 	public void generate(string mode, char op){
-		if (firstTime == false) {
 			firstTime = true;
 			QA.SetActive (true);
 
@@ -151,7 +154,6 @@ public class MathManager : MonoBehaviour {
 			btn [2].onClick.AddListener (bt3click);
 			btn [3].onClick.AddListener (bt4click);
 			attemps = 0;
-		}
 		mainOp = op;
 		mainTried = 0;
 		mainMode = mode;

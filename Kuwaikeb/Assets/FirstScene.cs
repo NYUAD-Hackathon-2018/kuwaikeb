@@ -4,7 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
 public class FirstScene : MonoBehaviour {
+
+	public GameObject QA;
+	public GameObject Options;
+	public GameObject correctAnswer;
 
 	// void Start ()
 	// {
@@ -33,6 +38,20 @@ public class FirstScene : MonoBehaviour {
       { 
          Application.LoadLevel(level);
        }
+
+    public void onMouseDown()
+    {
+    	Options.SetActive (true);
+		QA.SetActive (false);
+		correctAnswer.SetActive (false);
+    }
+
+    public void goToOptions()
+    {
+    	Options.SetActive (true);
+		QA.SetActive (false);
+		correctAnswer.SetActive (false);
+    }
 
 }
 
