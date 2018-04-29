@@ -75,6 +75,8 @@ public class MathManager : MonoBehaviour {
 								firstTime = false;
 								Options.SetActive (true);
 								QA.SetActive (false);
+								GameObject.Find("Canvas/avatar-yes").GetComponent<SpriteRenderer>().sortingOrder = 0;
+								//gameObject.GetComponent<Renderer>().enabled = true;
 								if (maxLevel == 2)
 									Options.transform.Find ("Sub").gameObject.GetComponent<Button> ().interactable = true;
 								if (maxLevel == 3)

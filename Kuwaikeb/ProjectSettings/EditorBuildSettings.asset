@@ -20,3 +20,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/information.unity
     guid: ee8b1249266764f3fb3996f8f3e44ec6
+  - enabled: 1
+    path: Assets/chatBot.unity
+    guid: 9b3e0e178deb7435b8c4136c0e80236d
+  - enabled: 1
+    path: Assets/MathScene.unity
+    guid: 628e37290054e3c41b57b0bd6158f320
